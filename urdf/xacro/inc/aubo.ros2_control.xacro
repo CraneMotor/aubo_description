@@ -1,12 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="aubo_ros2_control" params="name prefix use_fake_hardware:=false robot_ip config">
-
- <xacro:property name="initial_positions" value="${xacro.load_yaml(config)['initial_positions']}"/>
- <xacro:property name="upper_limits" value="${xacro.load_yaml(config)['upper_limits']}"/>
- <xacro:property name="lower_limits" value="${xacro.load_yaml(config)['lower_limits']}"/>
-
+  <xacro:macro name="aubo_ros2_control" params="name prefix use_fake_hardware:=false robot_ip">
     <ros2_control name="${name}" type="system">
       <hardware>
         <!-- ros2_control simulation -->
@@ -92,31 +87,6 @@
         <state_interface name="velocity"/>
       </joint>
     </ros2_control>
-
-
-     <ros2_control name="gripper_ros2_control" type="system">
-            <hardware>
-                 <plugin>gripper_driver/GripperHardwareInterface</plugin>
-            </hardware>
-            <joint name="finger_left_joint">
-                <command_interface name="position"/>
-                <state_interface name="position">
-                  <param name="initial_value">${initial_positions['finger_left_link']}</param>
-                  <param name="upper_limits">${upper_limits['finger_left_link']}</param>
-                  <param name="lower_limits">${lower_limits['finger_left_link']}</param>
-                </state_interface>
-              
-            </joint>
-            <joint name="finger_right_joint">
-                <command_interface name="position"/>
-                <state_interface name="position">
-                  <param name="initial_value">${initial_positions['finger_right_link']}</param>
-                  <param name="upper_limits">${upper_limits['finger_right_link']}</param>
-                  <param name="lower_limits">${lower_limits['finger_right_link']}</param>
-                </state_interface>
-               
-            </joint>
-     </ros2_control>
   </xacro:macro>
 
 </robot>

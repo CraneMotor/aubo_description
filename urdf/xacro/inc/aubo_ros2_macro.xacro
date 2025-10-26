@@ -3,8 +3,6 @@
 
   <xacro:macro name="aubo_robot" params="aubo_type transmission_hw_interface">
     <xacro:include filename="$(find aubo_description)/urdf/${aubo_type}.urdf.xacro" />
-    <!-- <xacro:include filename="$(find environment_description)/urdf/crane_motor/table_macro.xacro" />  -->
-
     <joint name="ee_fixed_joint" type="fixed">
       <parent link="wrist3_Link" />
       <child link ="ee_link" />
